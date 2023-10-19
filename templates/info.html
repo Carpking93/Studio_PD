@@ -8,6 +8,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-ND6MK8KP');</script>
+<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -17,12 +24,16 @@
 
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND6MK8KP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <form action="/info" method="POST">
         <div class="wrap">
             <div class="info_wrap">
                 <h3>회원 정보</h3>
-                <div id="info"> </div> 
-                                
+                <div id="info"> </div>
+
                 <div class="login_id">
                     <h4>이름</h4>
                     <input type="text" name="username" id="" value="{{ session['username'] }}" readonly>
@@ -30,7 +41,7 @@
                 <div class="login_id">
                     <h4>이메일</h4>
                     <input type="email" name="email" id="" value="{{ session['useremail'] }}" readonly>
-                </div>                
+                </div>
                 <div class="login_id">
                     <h4>핸드폰번호</h4>
                     <input type="text" name="phone" id="cellPhone" value="{{ session['userphone'] }}" maxlength="13" readonly>
@@ -50,7 +61,7 @@
                     <a href="/">홈으로</a>
                     </div>
                 </div>
-        
+
             </div>
         </div>
     </form>
@@ -75,7 +86,7 @@
                 tmp += '-';
                 tmp += str.substr(6);
                 return tmp;
-            }else{              
+            }else{
                 tmp += str.substr(0, 3);
                 tmp += '-';
                 tmp += str.substr(3, 4);

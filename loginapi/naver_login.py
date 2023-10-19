@@ -10,7 +10,7 @@ from random import randint
 from flask import Blueprint
 
 
-mysql = Mysql(password="qazx7412")
+mysql = Mysql(password="coramdeo")
 
 
 
@@ -22,7 +22,7 @@ bp = Blueprint('naver', __name__, url_prefix='/')
 @bp.route("/naver")
 def NaverLogin():
     client_id = "xQblil4Y1DlLCIc7nLfa"
-    redirect_uri = "http://localhost:5000/callback"
+    redirect_uri = "https://jyahn.pythonanywhere.com/callback"
     url = f"https://nid.naver.com/oauth2.0/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
     return redirect(url)
 
@@ -32,7 +32,7 @@ def callback():
     code = params.get("code")
     client_id = "xQblil4Y1DlLCIc7nLfa"
     client_secret = "tDRlsSv0cz"
-    redirect_uri = "http://localhost:5000/callback"
+    redirect_uri = "https://jyahn.pythonanywhere.com/callback"
     token_request = requests.get(f"https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id={client_id}&client_secret={client_secret}&code={code}")
     token_json = token_request.json()
     print(token_json)
@@ -59,4 +59,5 @@ def callback():
         session['is_loged_in'] = True
         session['username'] = naver_name
         session['email'] = naver_email
+        session['password'] = naver_password
         return redirect('/')

@@ -9,7 +9,6 @@ from datetime import timedelta
 from functools import wraps
 from flask_mail import Mail, Message
 from random import randint
-from faker import Faker
 # import ctypes
 # from plyer import notification1
 
@@ -28,7 +27,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
-mysql = Mysql(password="java")
+mysql = Mysql()
 
 def is_loged_in(func):
     @wraps(func)
@@ -44,20 +43,21 @@ def is_loged_in(func):
 def index():
     if request.method == "GET":
         os_info = dict(request.headers)
-        print(os_info)
+        # print(os_info)
         name = request.args.get("name")
-        print(name)
+        # print(name)
         hello = request.args.get("hello")
-        print(hello)
+        # print(hello)
         return render_template('indexst.html',header=f'{name}님 {hello}!!' )
 
     elif request.method == "POST":
         data  = request.form.get("name")
         data_2 = request.form['hello']
-        print(data_2)
+        # print(data_2)
         return render_template('indexst.html')
-    print(session['is_loged_in'])
+    # print(session['is_loged_in'])
     return render_template('indexst.html')
+    # print(session['id'])
 
 @app.route('/registerst', methods=['GET', 'POST'])
 def register():
@@ -118,18 +118,20 @@ def login():
         curs.execute(sql , email)
 
         rows = curs.fetchall()
-        print(rows)
+        # print(rows)
 
         if rows:
             result = mysql.verify_password(password, rows[0][4])
             if result:
                 session['is_loged_in'] = True
+                session['id'] = rows[0][0]
                 session['username'] = rows[0][1]
                 session['email'] = rows[0][2]
                 session['phone'] = rows[0][3]
                 session['password'] = rows[0][4]
                 return redirect('/')
                 # return render_template('index.html', is_loged_in = session['is_loged_in'] , username=session['username'] )
+                print(rows[0][4])
             else:
                 flash("회원정보가 틀립니다.")
                 # ctypes.windll.user32.MessageBoxW(0, "회원정보가 틀립니다.", "알림", 16)
@@ -253,7 +255,7 @@ def view(ids):
         author = request.form['author']
 
         result = mysql.update_list(ids,title,cont,author)
-        print(result)
+        print(ids)
         return redirect('/lists')
 
 @app.route('/edit/<ids>',methods=['GET','POST'])
@@ -295,10 +297,10 @@ def sub():
 
             else:
                 i['reviewStar'] = i['reviewStar']
-        print(datas)        
+        print(datas)
 
         return render_template('sub.html', data = datas)
-    
+
 
 # 상세페이지 이동 / 예약 기능 구현중
 
@@ -317,15 +319,15 @@ def detail(id):
         print(result3)
         print(result4)
         print('====***====')
-        
-        reivew_list = [] 
-        star_list = []   
+
+        reivew_list = []
+        star_list = []
         for result4_data in result4:
             if result4_data['studio_id'] == id:
                reivew_list.append(result4_data['review'])
                star_list.append(result4_data['reviewStar'])
         #        print(result4_data['studio_id'])
-        #        print(result4_data['review'])     
+        #        print(result4_data['review'])
         #        print(result4_data['reviewStar'])
         # print(reivew_list)
         # print(star_list)
@@ -372,6 +374,7 @@ def change_email():
 
 @app.route("/update_email", methods=["POST"])
 def update_email():
+    password = request.form['password']
     username = request.form["username"]
     new_email = request.form["new_email"]
     phone = request.form["phone"]
@@ -383,13 +386,16 @@ def update_email():
     # sql = "UPDATE user SET email=%s WHERE username=%s"
     # curs.execute(sql, (new_email, username))
     # result = mysql.updates_user(new_email, username)
-    result = mysql.updates_user( new_email,phone,username)
+    result = mysql.updates_user( username,new_email,phone,password)
     db.close()
     print(new_email)
     print(username)
-    # session['email'] = request.form["new_email"]
+    # session['email'] = session['email']
     session['phone'] = request.form["phone"]
+    session.update()
+    print(password)
     return redirect('/')
+
 
 # 스튜디오 예약 취소 (수정됨)
 @app.route('/myreservation',  methods=['GET', 'POST'])
@@ -459,7 +465,7 @@ def info():
 #         result = mysql.update_reservation(reviewStar,studio_id)
 #         print(result)
 #         return redirect('/close')
-    
+
 # @app.route('/close')
 # def close():
 #     return render_template('close.html')
@@ -474,8 +480,8 @@ def popup(date, name, number, id):
         result3 = number
         result4 = id
         return render_template('popup.html', data1 = result1, data2 = result2, data3 = result3, data4 = result4)
- 
-    if request.method == 'POST':        
+
+    if request.method == 'POST':
         number = request.form.get('number')
         studio_name = request.form.get('studio_name')
         review = request.form.get('review')
@@ -514,6 +520,10 @@ def test_studio():
         print(type(studio_file))
         print(studio_file)
         return redirect('/test_studio')
+
+@app.route('/infomation')
+def ifmation():
+    return render_template('infomation.html')
 
 
 

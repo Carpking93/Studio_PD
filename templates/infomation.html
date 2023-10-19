@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-ND6MK8KP');</script>
+<!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/infocss.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>예약안내</title>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND6MK8KP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="wrap">
+        <header>
+          <div class="header_wrap">
+            <h1 class="header_logo"><a href="/"><img src="/static/images/biglogojyahn.png" alt="로고"></a></h1>
+            <nav>
+              <!-- <button class="btn-close" onclick="document.querySelector('nav').style.display='none'">Χ</button> -->
+              <ul class="gnb">
+                <li><a href="/infomation">이용안내</a>
+                  <ul class="second-depth" id="aaa">
+                    <li><a href="/infomation">예약안내</a></li>
+                    <li><a href="/infomation">결제안내</a></li>
+                  </ul>
+                </li>
+                <li><a href="/sub">검색</a>
+                  <ul class="second-depth" >
+                    <li><a href="/sub">상세검색</a></li>
+                    <li><a href="/sub">지역검색</a></li>
+                    <li><a href="/sub">유형검색</a></li>
+                  </ul>
+                </li>
+                <li><a href="/change_email">이용후기</a></li>
+                <li><a href="/lists">고객센터</a></li>
+              </ul>
+            </nav>
+            <div class="utilmenu">
+              {% if session['is_loged_in'] %}
+                    {% if session['username'] == '관리자' %}
+                        <a href='/master'><span class="username">{{session['username']}}님</span></a>
+                    {% else%}
+                        <a href='/info'><span class="username">{{session['username']}}님</span></a>
+                    {% endif %}
+                {% else %}
+                    <span class="username">guest</span>
+                {% endif %}
+
+                {% if session['is_loged_in'] %}
+                  <a href="/logout"><img src="/static/images/logout.png" alt="마이메뉴"></a>
+                  {% else %}
+                  <a href="/loginst"><img src="/static/images/profile.png" alt="마이메뉴"></a>
+                  {% endif %}
+                  <a href="#" id="toggle_btn"><img src="/static/images/menu.png" alt="메뉴"></a>
+            </div>
+          </div>
+        </header>
+    </div>
+    <main class="container">
+        <section>
+            <h4>예약안내</h4>
+            <h6>1. 촬영 준비 및 세팅, 장비 철수 및 장소 원상복구 시간은 계약 시간에 포함 되어있습니다.
+                (시간 초과 시 30분 기준 추가 요금이 부가됩니다.)</h6>
+            <h6>2. 이동형 가벽은 '꼭' 두 명 이상이 옮겨야 안전 합니다.</h6>
+            <h6>3. 기동형 가벽 사용 시 천장형 에어컨을 피해서 옮겨 주세요.</h6>
+            <h6>4. 커텐 사용시 가급적 사다리를 이용해 주세요.</h6>
+            <h6>5. 촬영 후 사용하신 장비 등은 제자리에 놓아 주세요.</h6>
+            <h6>6. 촬영 하시면서 발생한 쓰레기를 다음 분을 위해 정리정돈 해주세요.</h6>
+            <h6>7. 공간에서의 취식은 금지 되어 있습니다.</h6>
+        </section>
+        <section>
+            <h4>결제안내</h4>
+            <h6>업체 규정에 따름</h6>
+        </section>
+      </main>
+</body>
+</html>

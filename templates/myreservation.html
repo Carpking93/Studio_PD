@@ -8,6 +8,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-ND6MK8KP');</script>
+<!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -23,24 +30,28 @@
     background-color: rgb(207, 192, 222);
     border-radius: 5px;
     border: none;
-    
+
   }
 </style>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND6MK8KP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div class="wrap">
     <header>
       <div class="header_wrap">
         <h1 class="header_logo"><a href="/"><img src="/static/images/biglogojyahn.png" alt="로고"></a></h1>
         <nav>
           <ul class="gnb">
-            <li><a>이용안내</a>
+            <li><a href='/infomation'>이용안내</a>
               <ul class="second-depth">
-                <li><a href="#">예약안내</a></li>
-                <li><a href="#">결제안내</a></li>
+                <li><a href="/infomation">예약안내</a></li>
+                <li><a href="/infomation">결제안내</a></li>
               </ul>
             </li>
-            <li><a href="#">검색</a>
+            <li><a href="/sub">검색</a>
               <ul class="second-depth" >
                 <li><a href="/sub">상세검색</a></li>
                 <li><a href="/sub">지역검색</a></li>
@@ -102,12 +113,12 @@
 
                   {% if 0 >= x[4] %}
                     <input type="checkbox" name="number" value="{{ x[2] }}">
-                    <input type="button" 
+                    <input type="button"
                     value="리뷰 남기기" id="{{ x[2] }}" disabled>
                     <span style="font-size: 12px;">* 리뷰는 예약일로부터 1일이 지난 이후에 작성가능합니다.</span>
                   </li>
                   {% elif x[4] > 0 %}
-                    <input type="button" onclick="window.open('/popup/{{ x[0] }}/{{ x[1] }}/{{ x[2] }}/{{ x[3] }}','review','width=800,height=600')" 
+                    <input type="button" onclick="window.open('/popup/{{ x[0] }}/{{ x[1] }}/{{ x[2] }}/{{ x[3] }}','review','width=800,height=600')"
                     value="리뷰 남기기" id="{{ x[2] }}">
                     <input type="checkbox" name="number" value="{{ x[2] }}" disabled>
                     <span style="font-size: 12px;">* 예약일이 지난 이후에는 취소가 불가합니다.</span>
@@ -119,8 +130,8 @@
             </ul>
           </div>
           <button onclick="script:check()" type="submit" id="btbbtb">예약취소</button>
-          <input type="button" onclick="window.open('/review_list','review_list','width=800,height=600')" value="내가 쓴 리뷰(미구현)" class="btn_deco"> 
-                    
+          <input type="button" onclick="window.open('/review_list','review_list','width=800,height=600')" value="내가 쓴 리뷰(미구현)" class="btn_deco">
+
         </form>
     </div>
   </div>

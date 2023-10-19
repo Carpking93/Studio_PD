@@ -9,6 +9,13 @@
 <html lang="en">
 
 <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-ND6MK8KP');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>reservation</title>
@@ -37,19 +44,23 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
-  
+
   </head>
-  
+
   <style>
     .inner-star::before{color: #FF9600;}
     .outer-star {position: relative;display: inline-block;color: #CCCCCC;}
     .inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: hidden;white-space: nowrap;}
     .outer-star::before, .inner-star::before {content: '\f005 \f005 \f005 \f005 \f005';font-family: 'Font Awesome 5 free';font-weight: 900;}
     </style>
-  
-  
-  
+
+
+
   <body>
+      <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND6MK8KP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <div class="wrap">
       <header>
         <div class="header_wrap">
@@ -57,10 +68,10 @@
           <nav>
             <!-- <button class="btn-close" onclick="document.querySelector('nav').style.display='none'">Χ</button> -->
             <ul class="gnb">
-              <li><a>이용안내</a>
+              <li><a href='/infomation'>이용안내</a>
                 <ul class="second-depth">
-                  <li><a href="#">예약안내</a></li>
-                  <li><a href="#">결제안내</a></li>
+                  <li><a href="/infomation">예약안내</a></li>
+                  <li><a href="/infomation">결제안내</a></li>
                 </ul>
               </li>
               <li><a href="/sub">검색</a>
@@ -79,7 +90,7 @@
             <span class="username">{{session['username']}}님</span>
             {% else %}
             <span class="username">guest</span>
-            {% endif %} 
+            {% endif %}
             {% if session['is_loged_in'] %}
             <a href="/logout"><img src="/static/images/logout.png" alt="마이메뉴"></a>
             {% else %}
@@ -89,7 +100,7 @@
           </div>
         </div>
       </header>
-  
+
       <div class='whole_wrap'>
         <main class="container" style="width: 1052px;">
           <div class="row" style="display: flex;">
@@ -119,23 +130,23 @@
             <div style="width: 45%; padding: 100px 20px; ">
               <div>
                 <h1>{{ data['스튜디오이름'] }}</h1>
-  
-  
+
+
                   <!--별점 표시  -->
                 <div class='RatingStar'>
                   <div class='RatingScore'>
                     <div class='outer-star'><div class='inner-star'></div></div>
                   </div>
                 </div>
-  
+
                 <!-- 리뷰 점수 표시-->
                 <h6>({{ data3 }})</h6>
-  
-  
+
+
                 <!-- <h4>{{ data['유형'] }}</h4> -->
                 <p>{{ data['주소(지역)'] }}</p>
               </div>
-  
+
               <form action="/detail/{{ data['studio_id'] }}" method="POST">
                 <input type="hidden" name="ids" value="{{ data['studio_id'] }}">
                 <input type="hidden" name="name" value="{{ data['스튜디오이름'] }}">
@@ -175,7 +186,7 @@
         <p>[후기]</p>
         {% for key, value in data4.items() %}
           <p>{{ key }}, ( {{ value }} )</p>
-        {% endfor %}  
+        {% endfor %}
         <div class="reservation">
           <h3>예약시 주의사항</h3>
           <ul>
@@ -320,10 +331,10 @@
 </script>
 </body>
 
-<script>/*<![CDATA[*/ 
+<script>/*<![CDATA[*/
 
   var star =  {{ data3 | safe }};
-  
+
   ratings = {RatingScore: star}
   console.log(ratings)
   totalRating = 5;

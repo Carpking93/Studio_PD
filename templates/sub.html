@@ -2,6 +2,13 @@
 <html lang="en">
 
 <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-ND6MK8KP');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>studio pd main</title>
@@ -23,11 +30,15 @@
   .inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: hidden;white-space: nowrap;}
   .outer-star::before, .inner-star::before {content: '\f005 \f005 \f005 \f005 \f005';font-family: 'Font Awesome 5 free';font-weight: 900;}
 
- 
+
 </style>
 
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND6MK8KP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div class="wrap">
     <header>
           <div class="header_wrap">
@@ -35,13 +46,13 @@
             <nav>
               <!-- <button class="btn-close" onclick="document.querySelector('nav').style.display='none'">Χ</button> -->
               <ul class="gnb">
-                <li><a>이용안내</a>
+                <li><a href='/infomation'>이용안내</a>
                   <ul class="second-depth" id="aaa">
-                    <li><a href="#">예약안내</a></li>
-                    <li><a href="#">결제안내</a></li>
+                    <li><a href="/infomation">예약안내</a></li>
+                    <li><a href="/infomation">결제안내</a></li>
                   </ul>
                 </li>
-                <li><a href="#">검색</a>
+                <li><a href="/sub">검색</a>
                   <ul class="second-depth" >
                     <li><a href="/sub">상세검색</a></li>
                     <li><a href="/sub">지역검색</a></li>
@@ -54,28 +65,33 @@
             </nav>
             <div class="utilmenu">
               {% if session['is_loged_in'] %}
-              <span class="username">{{session['username']}}님</span>
-              {% else %}
-              <span class="username">guest</span>
-              {% endif %}
-              {% if session['is_loged_in'] %}
-              <a href="/logout"><img src="/static/images/logout.png" alt="마이메뉴"></a>
-              {% else %}
-              <a href="/loginst"><img src="/static/images/profile.png" alt="마이메뉴"></a>
-              {% endif %}
-              <a href="#" id="toggle_btn"><img src="/static/images/menu.png" alt="메뉴"></a>
+                    {% if session['username'] == '관리자' %}
+                        <a href='/master'><span class="username">{{session['email']}}님</span></a>
+                    {% else%}
+                        <a href='/info'><span class="username">{{session['email']}}님</span></a>
+                    {% endif %}
+                {% else %}
+                    <span class="username">guest</span>
+                {% endif %}
+
+                {% if session['is_loged_in'] %}
+                  <a href="/logout"><img src="/static/images/logout.png" alt="마이메뉴"></a>
+                  {% else %}
+                  <a href="/loginst"><img src="/static/images/profile.png" alt="마이메뉴"></a>
+                  {% endif %}
+                  <a href="#" id="toggle_btn"><img src="/static/images/menu.png" alt="메뉴"></a>
             </div>
           </div>
         </header>
         <aside>
           <ul class="toggle_menu">
-            <li><a href="#">이용안내</a>
+            <li><a href="/infomation">이용안내</a>
               <ul class="second-menu">
-                <li><a href="#">예약안내</a></li>
-                <li><a href="#">결제안내</a></li>
+                <li><a href="/infomation">예약안내</a></li>
+                <li><a href="/infomation">결제안내</a></li>
               </ul>
             </li>
-            <li><a href="#">검색</a>
+            <li><a href="/sub">검색</a>
               <ul class="second-menu" >
                 <li><a href="/sub">상세검색</a></li>
                 <li><a href="/sub">지역검색</a></li>
@@ -84,7 +100,7 @@
             </li>
             <li><a href="#">이용후기</a></li>
             <li><a href="/lists">고객센터</a></li>
-            <li><a href="#">마이 페이지</a></li>
+            <li><a href="/info">마이 페이지</a></li>
           </ul>
         </aside>
 
@@ -147,7 +163,7 @@
                   </div>
                   <div class="text" style="display: inline-block;">
                    <h2 id="number{{ x['studio_id'] }}">{{ x['스튜디오이름'] }} </h2>
-                   
+
                      <div class='RatingStar' id="star{{ x['studio_id'] }}">
                       <div class='RatingScore'>
                         <div class='outer-star'><div class='inner-star'></div></div>
@@ -155,7 +171,7 @@
                       <span id="star_number{{ x['studio_id'] }}">( {{ x['reviewStar'] }} )</span>
                    </div>
                   <!--별점 표시  -->
-                  
+
                 </div>
                 </a>
               </div>
@@ -236,14 +252,14 @@
                 // console.log(ratings[rating])
                 // numberRating.innerText = ratings[rating];
                   }
-                } 
+                }
 
               rateIt()
 
           }
         }
 
-      // 별점 함수 
+      // 별점 함수
       function star(a) {
         for (i = 0; i < a.length; i++){
           let star = 'star' + i
@@ -254,7 +270,7 @@
           totalRating = 5;
           table = document.querySelector('#'+ star);
           // console.log(table)
-          // console.log('hi')  
+          // console.log('hi')
           console.log(r_star)
 
           function rateIt() {
@@ -271,11 +287,11 @@
               // console.log(ratings[rating])
               // numberRating.innerText = ratings[rating];
             }
-          } 
+          }
 
-          rateIt() 
-            
-          console.log('hi')  
+          rateIt()
+
+          console.log('hi')
           }
         }
 

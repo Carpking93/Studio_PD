@@ -3,7 +3,6 @@ import pymysql
 from passlib.hash import pbkdf2_sha256
 import pandas as pd
 
-
 # 원문 비밀번호를, 암호화 하는 함수
 
 def hash_password(original_password):
@@ -99,11 +98,11 @@ class Mysql:
         db.close()
         return result
 
-    def updates_user(self, email,phone,username):
+    def updates_user(self, username,email,phone,password):
         db = pymysql.connect(host=self.host, user=self.user, db=self.db, password=self.password, charset=self.charset)
         curs = db.cursor()
-        sql = 'update user set email=%s, phone=%s WHERE username=%s;'
-        result = curs.execute(sql, (email,phone,username))
+        sql = 'update user set username=%s, email=%s, phone=%s WHERE password=%s;'
+        result = curs.execute(sql, (username,email,phone,password))
         print(phone)
         db.commit()
         db.close()
@@ -119,7 +118,7 @@ class Mysql:
         if len(rows) != 0:
             for mysql_kakao_names in rows:
                 if kakao_name in mysql_kakao_names:
-                    return "exist"
+                    return rows
         else:
             db = pymysql.connect(host=self.host, user=self.user, db=self.db, password=self.password, charset=self.charset)
             curs = db.cursor()
@@ -277,7 +276,7 @@ class Mysql:
                 TIMESTAMPDIFF(DAY, studio_reservation.studio_date, CURDATE()) AS diff_day
                 FROM studio_reservation
                 WHERE email= %s""";
-        
+
         curs.execute(sql , [email])
         rows = curs.fetchall()
         print(rows)
@@ -386,14 +385,14 @@ class Mysql:
         #     if '유형' or 'image' in i:
         #         i['유형'] = eval(i['유형'])
         #         i['image'] = eval(i['image'])
-        #         json_data.append(i)    
+        #         json_data.append(i)
         #     else:s
         #         json_data.append(i)
 
         # result는 [] 안에 딕셔너리 형태로 들어옴
         # 반복문으로 result안에 있는 딕셔너리(i)자료들을 위에 만들어 놓은 빈 리스트(json_data)에 옮겨 담는데
         # 이때 i['유형'] 과 i['image']같은 경우 value값을 eval()함수를 이용하여
-        # 문자열형태'[]' 에서  리스트형태 []로 변경 하여 담는다.        
+        # 문자열형태'[]' 에서  리스트형태 []로 변경 하여 담는다.
         for i in result:
                 i['유형'] = eval(i['유형'])
                 i['image'] = eval(i['image'])
@@ -402,7 +401,7 @@ class Mysql:
         print(json_data)
         return json_data
 
-    #  기존 app.py에서 data.py를 이용 json파일을 불러오기 위해 호출한 Articles() 함수는 
+    #  기존 app.py에서 data.py를 이용 json파일을 불러오기 위해 호출한 Articles() 함수는
     #  mysql.Articles()로 호출.
 
 
@@ -419,7 +418,7 @@ class Mysql:
     #     db.close()
 
     #     return result
-    
+
 
 
 
@@ -429,10 +428,10 @@ class Mysql:
     #     sql = "select * from studio_reivew";
     #     curs.execute(sql)
     #     rows = curs.fetchall()
-            
+
     #     df = pd.DataFrame(rows)
 
-        
+
     #     print(df)
     #     # db.commit()
     #     db.close()
@@ -456,7 +455,7 @@ class Mysql:
         db.close()
 
         return result
-    
+
 
     # studio_review테이블에서 별점정보 가져오기
     def get_review_star(self):
@@ -486,18 +485,18 @@ class Mysql:
         # 별점과 스튜디오 아이디를 컬럼으로 데이터프레임 생성
         df1 = df[['reviewStar', 'studio_id']]
         # 스튜디오 아이디를 기준으로 그룹 후 평균값 계산
-        grouped_mean = df1['reviewStar'].groupby(df1['studio_id']).mean()    
+        grouped_mean = df1['reviewStar'].groupby(df1['studio_id']).mean()
         print(grouped_mean)
         print(grouped_mean.to_dict())
         # 딕셔너리 형태롤 변환 후 @app.route('/detail/<id>',  methods=['GET', 'POST'])에 값 전달
-        result = grouped_mean.to_dict()    
+        result = grouped_mean.to_dict()
         print(df1)
         # db.commit()
         db.close()
 
 
         return result, rows_2
-    
+
 
 
     def join(self):
@@ -510,17 +509,17 @@ class Mysql:
         rows = curs.fetchall()
 
 
-    
+
     def star(self):
         db = pymysql.connect(host=self.host, user=self.user, db=self.db, password=self.password, charset=self.charset)
         # 딕셔너리 형태로 모든 자료 가져오기
         curs = db.cursor(pymysql.cursors.DictCursor)
         sql = """SELECT * FROM studio_lists left join (SELECT studio_lists.studio_id,
-              AVG(studio_reivew.reviewStar) 
-              AS reviewStar 
-              FROM studio_lists 
-              left join studio_reivew 
-              on studio_lists.studio_id = studio_reivew.studio_id 
+              AVG(studio_reivew.reviewStar)
+              AS reviewStar
+              FROM studio_lists
+              left join studio_reivew
+              on studio_lists.studio_id = studio_reivew.studio_id
               GROUP BY studio_lists.studio_id) as b on studio_lists.studio_id = b.studio_id""";
 
         curs.execute(sql)
@@ -531,14 +530,14 @@ class Mysql:
         #     if '유형' or 'image' in i:
         #         i['유형'] = eval(i['유형'])
         #         i['image'] = eval(i['image'])
-        #         json_data.append(i)    
+        #         json_data.append(i)
         #     else:s
         #         json_data.append(i)
 
         # result는 [] 안에 딕셔너리 형태로 들어옴
         # 반복문으로 result안에 있는 딕셔너리(i)자료들을 위에 만들어 놓은 빈 리스트(json_data)에 옮겨 담는데
         # 이때 i['유형'] 과 i['image']같은 경우 value값을 eval()함수를 이용하여
-        # 문자열형태'[]' 에서  리스트형태 []로 변경 하여 담는다.        
+        # 문자열형태'[]' 에서  리스트형태 []로 변경 하여 담는다.
         for i in result:
                 i['유형'] = eval(i['유형'])
                 i['image'] = eval(i['image'])
